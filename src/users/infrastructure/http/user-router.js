@@ -5,7 +5,7 @@ const {
   createUserSchema,
   getUserSchema,
   updateUserSchema,
-} = require("../../application/user-validation-schemas");
+} = require("../utils/user-validation-schemas");
 
 const userRouter = express.Router();
 
