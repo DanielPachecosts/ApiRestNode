@@ -2,10 +2,18 @@ const boom = require("@hapi/boom");
 const UserModel = require("./mongoose-user.schema");
 
 class UserMongoRepository {
-  async get(userId) {
+  async getById(userId) {
     const user = await UserModel.findById(userId);
     if (!user) {
       throw boom.notFound();
+    }
+    return user;
+  }
+
+  async getByEmail(email) {
+    const user = await UserModel.findOne({ email: email });
+    if(!user) {
+      throw boom.badRequest();
     }
     return user;
   }
@@ -18,6 +26,7 @@ class UserMongoRepository {
   async create(user) {
     const userSaved = new UserModel(user);
     const newUser = await userSaved.save();
+
     if (!newUser) {
       throw boom.badRequest();
     }
@@ -25,7 +34,7 @@ class UserMongoRepository {
   }
 
   async update(userId, changes) {
-    await this.get(userId);
+    await this.getById(userId);
     const user = await UserModel.findByIdAndUpdate(userId, changes, {
       new: true,
     });

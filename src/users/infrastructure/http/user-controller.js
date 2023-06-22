@@ -29,6 +29,7 @@ class UserController {
 
   async getAll(req, res, next) {
     try {
+      console.log(req.headers.authorization);
       const users = await this.getAllUsers.run();
       res.status(200).json({ message: "getAll endpoint OK", users: users });
     } catch (error) {

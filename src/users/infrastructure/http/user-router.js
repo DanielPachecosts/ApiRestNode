@@ -1,6 +1,7 @@
 const express = require("express");
-const userController = require("../dependencies");
+const { userController } = require("../dependencies");
 const validatorHandler = require("../../../shared/infrastructure/middelwares/validator-handler");
+const authHandler = require("../../../shared/infrastructure/middelwares/auth-handler");
 const {
   createUserSchema,
   getUserSchema,
@@ -15,7 +16,7 @@ userRouter.post(
   userController.create.bind(userController)
 );
 
-userRouter.get("/", userController.getAll.bind(userController));
+userRouter.get("/", authHandler, userController.getAll.bind(userController));
 
 userRouter.get(
   "/:id",
