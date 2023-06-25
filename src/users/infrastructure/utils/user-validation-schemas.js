@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const id = Joi.string();
 const name = Joi.string()
-  .regex(/^[A-Za-z]+$/)
+  .regex(/^[A-Za-z\s]+$/)
   .min(3);
 const email = Joi.string().email();
 const password = Joi.string().min(6);

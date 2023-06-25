@@ -9,6 +9,9 @@ const config = {
     dbPassword: process.env.DB_PASSWORD,
     dbName: process.env.DB_NAME,
     jwtSecretKey: process.env.JWT_SECRET_KEY,
+    facebookClientId: process.env.FACEBOOK_CLIENT_ID,
+    facebookClientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    facebookCallback: process.env.FACEBOOK_CALLBACK_URI
 }
 
 module.exports = config;

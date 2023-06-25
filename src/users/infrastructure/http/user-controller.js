@@ -17,9 +17,9 @@ class UserController {
     }
   }
 
-  async get(req, res, next) {
+  async getCurrentUser(req, res, next) {
     try {
-      const id = req.params.id;
+      const id = req.user.sub;
       const user = await this.getById.run(id);
       res.status(200).json({ message: "get endpoint OK", user: user });
     } catch (error) {
@@ -29,7 +29,6 @@ class UserController {
 
   async getAll(req, res, next) {
     try {
-      console.log(req.headers.authorization);
       const users = await this.getAllUsers.run();
       res.status(200).json({ message: "getAll endpoint OK", users: users });
     } catch (error) {
@@ -39,7 +38,7 @@ class UserController {
 
   async update(req, res, next) {
     try {
-      const id = req.params.id;
+      const id = req.user.sub;
       const changes = req.body;
       const user = await this.updateUser.run(id, changes);
       res
@@ -52,7 +51,7 @@ class UserController {
 
   async delete(req, res, next) {
     try {
-      const id = req.params.id;
+      const id = req.user.sub;
       const userDeleted = await this.deleteUser.run(id);
       res.status(200).json({ message: "delete endpoint OK", userDeleted });
     } catch (error) {

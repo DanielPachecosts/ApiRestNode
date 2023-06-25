@@ -4,7 +4,7 @@ class GetById {
   }
 
   run(userId) {
-    const user = this.userRepository.get(userId);
+    const user = this.userRepository.getById(userId);
     return user;
   }
 }

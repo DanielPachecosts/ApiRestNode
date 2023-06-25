@@ -13,10 +13,9 @@ class LoginUser {
       sub: user._id,
       role: "USER",
     };
-    const { name } = user;
 
     const access_token = this.tokenService.signToken(payload);
-    return { access_token, user: { name, email } };
+    return  access_token;
   }
 }
 

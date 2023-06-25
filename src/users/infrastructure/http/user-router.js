@@ -19,22 +19,18 @@ userRouter.post(
 userRouter.get("/", authHandler, userController.getAll.bind(userController));
 
 userRouter.get(
-  "/:id",
-  validatorHandler(getUserSchema, "params"),
-  userController.get.bind(userController)
+  "/current",
+  authHandler,
+  userController.getCurrentUser.bind(userController)
 );
 
 userRouter.put(
-  "/:id/",
-  validatorHandler(getUserSchema, "params"),
+  "/",
+  authHandler,
   validatorHandler(updateUserSchema, "body"),
   userController.update.bind(userController)
 );
 
-userRouter.delete(
-  "/:id/",
-  validatorHandler(getUserSchema, "params"),
-  userController.delete.bind(userController)
-);
+userRouter.delete("/", authHandler, userController.delete.bind(userController));
 
 module.exports = userRouter;

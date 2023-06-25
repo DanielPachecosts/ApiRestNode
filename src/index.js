@@ -14,6 +14,8 @@ async function boostrap() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
+  require("./users/infrastructure/utils/facebook-strategy");
+
   routerApi(app);
 
   app.get("/", (req, res) => {

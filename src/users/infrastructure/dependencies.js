@@ -6,6 +6,7 @@ const GetById = require("../application/get-users-by-id");
 const DeleteUser = require("../application/delete-user");
 const UpdateUser = require("../application/update-user");
 const LoginUser = require("../application/login-user");
+const AuthFacebook = require("../application/auth-facebook");
 const HashingService = require("./security/hashing-service");
 const TokenService = require("./security/token-service");
 const UserMongoRepository = require("./repositories/mongoose-user-repository");
@@ -24,6 +25,7 @@ const loginUser = new LoginUser(
   TokenService,
   HashingService
 );
+const authFacebook = new AuthFacebook(userMongoRepository, TokenService);
 
 // controllers
 const userController = new UserController(
@@ -33,6 +35,6 @@ const userController = new UserController(
   deleteUser,
   updateUser
 );
-const authController = new AuthController(loginUser);
+const authController = new AuthController(loginUser, authFacebook);
 
 module.exports = { userController, authController };
