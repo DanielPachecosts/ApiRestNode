@@ -5,9 +5,10 @@ const {
   errorHandler,
   boomErrorHandler,
 } = require("./shared/infrastructure/middelwares/error-handler");
-const { database } = require("./shared/infrastructure/database/mongo-config");
+const database = require("./shared/infrastructure/database/mongo-config");
+const message = require("./info-message");
 
-async function boostrap() {
+async function bootstrap() {
   const app = express();
   const port = config.port;
 
@@ -19,7 +20,7 @@ async function boostrap() {
   routerApi(app);
 
   app.get("/", (req, res) => {
-    res.send({ message: "Todo OK" });
+    res.send(message);
   });
 
   app.use(boomErrorHandler);
@@ -39,4 +40,4 @@ async function boostrap() {
   });
 }
 
-boostrap();
+bootstrap();

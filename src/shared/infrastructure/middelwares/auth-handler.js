@@ -1,17 +1,17 @@
-const boom = require("@hapi/boom");
+const Boom = require("@hapi/boom");
 const TokenService = require("../../../users/infrastructure/security/token-service");
 
 function authHandler(req, res, next) {
   const authHeaders = req.headers.authorization;
 
   if (!authHeaders) {
-    throw boom.unauthorized();
+    throw Boom.unauthorized();
   }
 
   const [authType, token] = authHeaders.split(" ");
 
   if (authType !== "Bearer") {
-    throw boom.unauthorized();
+    throw Boom.unauthorized();
   }
 
   try {
@@ -19,7 +19,7 @@ function authHandler(req, res, next) {
     req.user = payload;
     next();
   } catch (error) {
-    throw boom.unauthorized(error);
+    throw Boom.unauthorized(error);
   }
 }
 

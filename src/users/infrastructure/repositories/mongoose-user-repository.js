@@ -1,12 +1,12 @@
-const boom = require("@hapi/boom");
+const Boom = require("@hapi/boom");
 const LocalUserModel = require("./mongoose-user-schema");
 const FacebooklUserModel = require("./facebook-user-schema");
 
-class UserMongoRepository {
+class MongoUserRepository {
   async getById(userId) {
     const user = await LocalUserModel.findById(userId);
     if (!user) {
-      throw boom.notFound();
+      throw Boom.notFound();
     }
     return user;
   }
@@ -14,7 +14,7 @@ class UserMongoRepository {
   async getByEmail(email) {
     const user = await LocalUserModel.findOne({ email: email });
     if (!user) {
-      throw boom.badRequest();
+      throw Boom.badRequest();
     }
     return user;
   }
@@ -32,7 +32,7 @@ class UserMongoRepository {
     const newUser = await userSaved.save();
 
     if (!newUser) {
-      throw boom.badRequest();
+      throw Boom.badRequest();
     }
     return newUser;
   }
@@ -48,7 +48,7 @@ class UserMongoRepository {
   async delete(userId) {
     const user = await LocalUserModel.findByIdAndDelete(userId);
     if (!user) {
-      throw boom.badRequest();
+      throw Boom.badRequest();
     }
     return true;
   }
@@ -61,10 +61,12 @@ class UserMongoRepository {
       return userStored;
     }
 
+    const { id, displayName, provider } = profile;
+
     const newUser = {
-      facebookId: profile.id,
-      name: profile.displayName,
-      provider: profile.provider,
+      facebookId: id,
+      name: displayName,
+      provider: provider,
     };
 
     const user = new FacebooklUserModel(newUser);
@@ -73,4 +75,4 @@ class UserMongoRepository {
   }
 }
 
-module.exports = UserMongoRepository;
+module.exports = MongoUserRepository;

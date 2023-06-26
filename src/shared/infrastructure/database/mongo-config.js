@@ -14,4 +14,4 @@ const database = async (connection, host, port, user, password, db) => {
   }
 };
 
-module.exports = { database };
+module.exports = database;

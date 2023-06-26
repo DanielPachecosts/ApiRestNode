@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const boom = require("@hapi/boom");
+const Boom = require("@hapi/boom");
 
 class HashingService {
   async hashPassword(password) {
@@ -10,7 +10,7 @@ class HashingService {
   async comparePassword(password, hash) {
     const isValid = await bcrypt.compare(password, hash);
     if (!isValid) {
-      throw boom.badRequest();
+      throw Boom.badRequest();
     }
     return isValid;
   }

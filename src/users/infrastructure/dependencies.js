@@ -9,23 +9,23 @@ const LoginUser = require("../application/login-user");
 const AuthFacebook = require("../application/auth-facebook");
 const HashingService = require("./security/hashing-service");
 const TokenService = require("./security/token-service");
-const UserMongoRepository = require("./repositories/mongoose-user-repository");
+const MongoUserRepository = require("./repositories/mongoose-user-repository");
 
 // repositories
-const userMongoRepository = new UserMongoRepository();
+const mongoUserRepository = new MongoUserRepository();
 
 // Use cases
-const createUser = new CreateUser(userMongoRepository, HashingService);
-const getById = new GetById(userMongoRepository);
-const getAllusers = new GetAllUsers(userMongoRepository);
-const deleteUser = new DeleteUser(userMongoRepository);
-const updateUser = new UpdateUser(userMongoRepository);
+const createUser = new CreateUser(mongoUserRepository, HashingService);
+const getById = new GetById(mongoUserRepository);
+const getAllusers = new GetAllUsers(mongoUserRepository);
+const deleteUser = new DeleteUser(mongoUserRepository);
+const updateUser = new UpdateUser(mongoUserRepository);
 const loginUser = new LoginUser(
-  userMongoRepository,
+  mongoUserRepository,
   TokenService,
   HashingService
 );
-const authFacebook = new AuthFacebook(userMongoRepository, TokenService);
+const authFacebook = new AuthFacebook(mongoUserRepository, TokenService);
 
 // controllers
 const userController = new UserController(
